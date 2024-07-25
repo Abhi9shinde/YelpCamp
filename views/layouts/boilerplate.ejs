@@ -18,7 +18,9 @@
 <body class="d-flex flex-column vh-100">
     <%- include('../partials/navbar') %>
     <main class="container mt-5 mb-2">
-        <%- include('../partials/flash') %>
+        <% var success = typeof success !== 'undefined' ? success : ''; %>
+        <% var error = typeof error !== 'undefined' ? error : ''; %>
+        <%- include('../partials/flash', { success: success, error: error }) %>
         <%-body%>
     </main>
     <%- include('../partials/footer') %>
