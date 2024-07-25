@@ -91,7 +91,7 @@ module.exports.updateCampground = async (req, res) => {
     ...req.body.campground,
   });
   const geoData = await maptilerClient.geocoding.forward(
-    req.body.camp.location,
+    req.body.campground.location,
     { limit: 1 }
   );
   camp.geometry = geoData.features[0].geometry;
