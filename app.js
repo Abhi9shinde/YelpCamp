@@ -41,6 +41,13 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(mongoSanitize());
 app.use(helmet());
 
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
+
 const store = MongoStore.create({
   mongoUrl: dbURL,
   touchAfter: 24 * 60 * 60,
@@ -123,13 +130,6 @@ passport.use(new localStrategy(User.authenticate())); //Authentication function
 
 passport.serializeUser(User.serializeUser()); //serialize the storage of the user
 passport.deserializeUser(User.deserializeUser()); //desrialize the storage of the user
-
-app.use((req, res, next) => {
-  res.locals.currentUser = req.user;
-  res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error");
-  next();
-});
 
 /*****campground router********** */
 app.use("/campgrounds", campgroundRoutes);
