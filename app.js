@@ -65,6 +65,23 @@ const sessionConfig = {
   },
 };
 
+app.use(session(sessionConfig));
+app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate())); //Authentication function
+
+passport.serializeUser(User.serializeUser()); //serialize the storage of the user
+passport.deserializeUser(User.deserializeUser()); //desrialize the storage of the user
+
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
+
 const scriptSrcUrls = [
   "https://stackpath.bootstrapcdn.com/",
   // "https://api.tiles.mapbox.com/",
@@ -114,23 +131,6 @@ app.use(
     },
   })
 );
-
-app.use(session(sessionConfig));
-app.use(flash());
-
-app.use((req, res, next) => {
-  res.locals.currentUser = req.user;
-  res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error");
-  next();
-});
-
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new localStrategy(User.authenticate())); //Authentication function
-
-passport.serializeUser(User.serializeUser()); //serialize the storage of the user
-passport.deserializeUser(User.deserializeUser()); //desrialize the storage of the user
 
 /*****campground router********** */
 app.use("/campgrounds", campgroundRoutes);
