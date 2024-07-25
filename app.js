@@ -15,12 +15,12 @@ const localStrategy = require("passport-local");
 const User = require("./models/user");
 const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
+const MongoStore = require("connect-mongo");
 
 const campgroundRoutes = require("./routes/campgrounds"); // Router(for simplifying app.js)
 const reviewsRoutes = require("./routes/reviews"); //Router for reviews
 const userRoutes = require("./routes/users");
 
-const MongoStore = require("connect-mongo");
 const dbURL = process.env.DB_URL || "mongodb://127.0.0.1:27017/yelpcamp";
 
 // mongodb://127.0.0.1:27017/yelpcamp
@@ -40,13 +40,6 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(mongoSanitize());
 app.use(helmet());
-
-app.use((req, res, next) => {
-  res.locals.currentUser = req.user;
-  res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error");
-  next();
-});
 
 const store = MongoStore.create({
   mongoUrl: dbURL,
@@ -71,8 +64,6 @@ const sessionConfig = {
     maxAge: 1000 * 60 * 60 * 24 * 7,
   },
 };
-app.use(session(sessionConfig));
-app.use(flash());
 
 const scriptSrcUrls = [
   "https://stackpath.bootstrapcdn.com/",
@@ -123,6 +114,16 @@ app.use(
     },
   })
 );
+
+app.use(session(sessionConfig));
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
 
 app.use(passport.initialize());
 app.use(passport.session());
