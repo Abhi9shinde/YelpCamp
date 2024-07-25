@@ -11,7 +11,7 @@
                 <img crossorigin="anonymous" class="card-img-top" alt="" src="<%= camp.images[0].url %>">
                 <div class="card-body">
                     <h5 class="card-title"><%= camp.title %></h5>
-                    <p class="card-text"><%= camp.description %></p>
+                    <p class="card-text"><%= camp.description.substring(0,100) %>...</p>
                     <p class="card-text">
                         <small class="text-muted"><%= camp.location %></small>
                     </p>
