@@ -18,11 +18,11 @@ YelpCamp is a dynamic web application that allows users to browse, review, and a
 
 | Home Page | Campground List | Campground Details |
 |---|---|---|
-| <img src="public/screenshots/home.png" alt="Home Page" width="400"> | <img src="public/screenshots/list.png" alt="Campground List" width="400"> | <img src="public/screenshots/details.png" alt="Campground Details" width="400"> |
+| <img src="public/screenshot1.png" alt="Home Page" width="400"> | <img src="public/screenshot2.png" alt="Campground List" width="400"> | <img src="public/screenshot3.png" alt="Campground Details" width="400"> |
 
 | Add Campground | Edit Campground | User Authentication |
 |---|---|---|
-| <img src="public/screenshots/add.png" alt="Add Campground" width="400"> | <img src="public/screenshots/edit.png" alt="Edit Campground" width="400"> | <img src="public/screenshots/auth.png" alt="User Authentication" width="400"> |
+| <img src="public/screenshot4.png" alt="Add Campground" width="400"> | <img src="public/screenshot5.png" alt="Edit Campground" width="400"> | <img src="public/screenshot6.png" alt="User Authentication" width="400"> |
 
 ## Installation
 
@@ -44,8 +44,10 @@ Create a `.env` file and configure the following variables:
 
 ```env
 DATABASE_URL=<your_mongodb_connection_string>
-SESSION_SECRET=<your_secret_key>
-MAPBOX_TOKEN=<your_mapbox_api_token>
+CLOUDINARY_CLOUD_NAME=<your_secret_name>
+CLOUDINARY_KEY=<your_secret_key>
+CLOUDINARY_SECRET=<your_secret>
+MAPTILER_API_KEY=<your_maptiler_api_token>
 ```
 
 **4. Start the Development Server**
@@ -84,13 +86,8 @@ This project utilizes the following technologies:
 - Implement real-time chat for campers
 - Add AI-powered campground recommendations
 - Offline support for accessing saved campgrounds
-
-## License
-This project is licensed under the MIT License.
-
----
 **Contributors:**
-- **[Your Name]** - Full-Stack Developer
+- **Abhinav Shinde** - Full-Stack Developer
 
 🚀 Happy Camping with YelpCamp! 🏕️
 
